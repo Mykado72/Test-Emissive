@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Name: Scene1
   m_EditorClassIdentifier: 
   sceneName: Scene1
-  itemStateSave: 
-  allItemsCollectedList: []
+  itemsCollectedList: []
   totalCollectiblesToCollectInScene: 5
   nbCollectedItemInScene: 0

@@ -15,5 +15,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 798a053a72cb6a742be89540f12ef6c4, type: 2}
   - {fileID: 11400000, guid: 09690f7022cbd8c47bbb1c5d86ec0f53, type: 2}
   - {fileID: 11400000, guid: 2aa72693cb57b3743901cdfa35739086, type: 2}
+  SceneDataBaseListSerialized:
+  - 0
+  - 0
+  - 0
   totalCollected: 0
   score: 0
