@@ -48,7 +48,7 @@ namespace TestEmissive
         void Start()
         {
             LoadGameData("Save.json"); // charge le fichier "Save.json" (pour Windows dans C:\Users\UTILISATEUR\AppData\LocalLow\DefaultCompany\Test emissive)
-            NewSceneIsLoaded();        //
+            SceneManager.sceneLoaded += OnSceneLoaded; // OnSceneLoaded sera lancé à chaque le (re)loading d'une scene            
         }
 
         /// <summary>
@@ -84,8 +84,6 @@ namespace TestEmissive
             nbInScene++;
             currentSceneState.nbCollectedItemInScene = nbInScene;
             currentSceneState.itemsCollectedList.Add(collectible.itemName);
-            if (nbInScene >= currentSceneState.totalCollectiblesToCollectInScene)
-                Debug.Log("Level Finish");
             database.totalCollected++;
             database.score += collectible.itemValue;    
             SaveGameData("Save.json");
@@ -108,8 +106,10 @@ namespace TestEmissive
         {            
             if (currentSceneState != null )
             {   // = null quand MenuPrincipal
-                int nbInScene = database.SceneDataBaseList[currentSceneIndex].nbCollectedItemInScene;
-                scoreboard.UpdateNbItemsCollectedInScene(nbInScene);
+                if (currentSceneState.nbCollectedItemInScene >= currentSceneState.totalCollectiblesToCollectInScene)
+                    scoreboard.LevelFinished(currentSceneState.name);
+                else                    
+                    scoreboard.UpdateNbItemsCollectedInScene(currentSceneState.nbCollectedItemInScene);
             }
             scoreboard.UpdateGlobalItemsCollected(database.totalCollected);
             scoreboard.UpdateScore(database.score);
@@ -169,6 +169,12 @@ namespace TestEmissive
                 Destroy(this.gameObject);
             }
             DontDestroyOnLoad(this.gameObject);
+        }
+
+        void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            // Initialise(); // initialise ou charge les données et les rafraichis dans l'UI 
+            NewSceneIsLoaded();
         }
     }
 

@@ -21,12 +21,6 @@ namespace TestEmissive
         public int nbItemsCollectedTotal;
         [SerializeField]
         private bool ShowNbItemsCollectedInScene;
-        [SerializeField]
-        private SceneCollectiblesState SceneCollectiblesState;
-        [SerializeField]
-        private SaveDatabaseManager databaseManager;
-        [SerializeField]
-        private CollectivesDatabasesScriptableObject database;
 
         void Awake()
         {
@@ -36,14 +30,7 @@ namespace TestEmissive
         // Use this for initialization
         void Start()
         {
-            // Initialise();  // initialise ou charge les données et les rafraichis dans l'UI 
-            SceneManager.sceneLoaded += OnSceneLoaded; // permet de detecter le loading d'une scene
-        }
 
-        void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-        {
-            // Initialise(); // initialise ou charge les données et les rafraichis dans l'UI 
-            databaseManager.NewSceneIsLoaded();
         }
 
         public void UpdateScore(int value)
@@ -58,8 +45,12 @@ namespace TestEmissive
 
         public void UpdateNbItemsCollectedInScene(int nb)
         {
-            // permet de ne conserver qu'une instance de ce script
             nbItemsCollectedInSceneText.text = "Item found in this level : " + nb;
+        }
+
+        public void LevelFinished(string name)
+        {            
+            nbItemsCollectedInSceneText.text = "LEVEL "+name+" FINISHED !";            
         }
 
         private void DontDestroy()
